@@ -32,3 +32,5 @@ source venv/Scripts/activate
  ```bash
 pip install -r requirements.txt
 ```
+
+## How to run
