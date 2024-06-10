@@ -38,8 +38,3 @@ class FluxLoader:
                     break
             self.cap.release()
             cv2.destroyAllWindows()
-
-
-# Testing the flux loader
-video_loader = FluxLoader("profil.jpg")
-video_loader.display_sources()
