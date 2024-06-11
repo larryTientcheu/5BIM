@@ -1,21 +1,33 @@
 import cv2
 import numpy as np
-import flux_loader, download_helper
+import flux_loader
+import download_helper
 
-class YoloModelv3:
-    def __init__(self, source, config_path, weights_path, names_path):
+class YoloModelv3():
+    """YoloModelv3 _summary_ Yolo model version 3 
+    """
+    def __init__(self, source):
         self.video_loader = flux_loader.FluxLoader(source)
-        download_helper.YoloDownloadsV3().download()
-        
-        self.net = cv2.dnn.readNetFromDarknet(config_path, weights_path)
+        yolo3files = download_helper.YoloDownloadsV3()
+        yolo3files.download()
+
+        self.net = cv2.dnn.readNetFromDarknet(yolo3files.yolo_cfg_path, yolo3files.yolo_weights_path)
         self.layer_names = self.net.getLayerNames()
         self.output_layers = [
             self.layer_names[i - 1] for i in self.net.getUnconnectedOutLayers()
         ]
-        with open(names_path, "r") as f:
+        with open(yolo3files.coco_names_path, "r") as f:
             self.classes = [line.strip() for line in f.readlines()]
 
     def detect(self, frame):
+        """detect _summary_ Detection algorithm for v3 model
+
+        Arguments:
+            frame -- _description_
+
+        Returns:
+            _description_
+        """
         height, width = frame.shape[:2]
         blob = cv2.dnn.blobFromImage(
             frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False
@@ -46,6 +58,14 @@ class YoloModelv3:
 
 
     def make_detection(self, frame):
+        """make_detection Class specific detection
+
+        Arguments:
+            frame -- string frame representation
+
+        Returns:
+            frame -- string 
+        """
         detections = self.detect(frame)
         for box, class_id in detections:
             x, y, w, h = box
@@ -66,7 +86,7 @@ class YoloModelv3:
 
     def run(self):
         """
-        Exécute le système de détection d'objets.
+        Run the object detection algorithm
         """
         if self.video_loader.is_image:
             frame = self.video_loader.image
