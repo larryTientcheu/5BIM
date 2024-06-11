@@ -1,4 +1,4 @@
-# INTRODICTION
+# Intoduction
 
 This is an object detection algorithm, this algorithm is able to detect a mouse a keyboard or a laptop from an image, a video or a video feed from the users webcamera. This algorithm uses OpenCV and YOLO(You Only Look Once).
 
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 
 ## How to run
 
-* To run this script, we directly run the file `main.py` with some arguments.
+* To run this script, we directly run the file `main.py` with some arguments. If using `v3`, make sure to create a directory called `yolov3` to store the downloaded v3 model.
 
 * ```bash
 
