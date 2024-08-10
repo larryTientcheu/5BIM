@@ -1,4 +1,4 @@
-# Intoduction
+# Introduction
 
 This is an object detection algorithm, this algorithm is able to detect a mouse a keyboard or a laptop from an image, a video or a video feed from the users webcamera. This algorithm uses OpenCV and YOLO(You Only Look Once).
 
